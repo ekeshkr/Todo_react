@@ -1,24 +1,43 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import TodoInput from './components/TodoInput';
+import TodoList from './components/TodoList';
+
+const getLocalStorage = () =>{
+  let list = localStorage.getItem('Todo')
+  if(list){
+    return (list = JSON.parse(localStorage.getItem('Todo')));
+  }else{
+    return [];
+  }
+}
 
 function App() {
+   const [todos,setTodos] = useState(getLocalStorage());
+
+  const inputListHandler=(todo,quantity)=>{
+     setTodos(prevTodos=>{
+      return[...prevTodos,{name:todo,quantity:quantity,id:Date.now()}]
+     })
+  }
+  useEffect(() => {
+    localStorage.setItem('Todo',JSON.stringify(todos))
+
+  }, [todos])
+  
+
+  const deleteHandler=(todoId)=>{
+    setTodos((prevTodos)=>{
+       return prevTodos.filter((todo)=>todo.id !== todoId)
+    })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+     <TodoInput addInput={inputListHandler}/>
+     <TodoList addTodo={todos} onDelete={deleteHandler}/>
+     
+    </>
   );
 }
 

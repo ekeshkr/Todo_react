@@ -1,0 +1,27 @@
+ul{
+    margin: 10px auto;
+    width: 400px;
+    list-style: none;
+    background: white;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+li{
+    margin: 5px auto;
+    background-color: #d8aadc;
+    width: fit-content;
+    border-radius: 5px;
+}
+
+
+.delete{
+    display: inline;
+    margin: 0 0 0 197px ;
+    background-color: red;
+    width: fit-content;
+}
+
+span{
+    padding-left: 5px;
+}
